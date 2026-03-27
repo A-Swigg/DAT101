@@ -1,17 +1,32 @@
-"uses strick";
-import{TSprite} from "libSprite";
+"use strict";
+import { TSprite } from "libSprite";
 
 export class TBackground{
-    #spriteBackground;
-    #spriteGround;
+  #spriteBackground;
+  #spriteGround;
 
-    contructor(aSpcvs, aSPI){
-        this.#spriteBackground = new TSprite(aSpcvs, aSPI.background,0,0);
+  constructor(aSpcvs, aSPI){
+    this.#spriteBackground = new TSprite(aSpcvs,aSPI.background,0,0);
+    const groundPosY = aSPI.background.height - aSPI.ground.height;
+    this.#spriteGround = new TSprite(aSpcvs, aSPI.ground, 0, groundPosY);
+  }
+
+  drawBackground(){
+    this.#spriteBackground.draw();
+  }
+
+  drawGround(){
+    this.#spriteGround.draw();
+  }
+
+  animate(){
+    const x = this.#spriteGround.x + (this.#spriteGround.width / 2);
+    if(x < 5){
+      this.#spriteGround.x = 0;  
+    }else{
+      this.#spriteGround.x--;
     }
-
-
-    draw(){
-        this.#spriteBackground.draw();
-    }
-
+  }
 }
+
+
